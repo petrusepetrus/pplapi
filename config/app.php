@@ -180,6 +180,10 @@ return [
          * AGP - need to register the FortifyServiceProvider
          */
         App\Providers\FortifyServiceProvider::class,
+        /*
+         * AGP - need to register the Spatie PermissionServiceProvider
+         */
+        Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 

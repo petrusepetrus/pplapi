@@ -29,6 +29,15 @@ class AuthServiceProvider extends ServiceProvider
         });
         $this->registerPolicies();
 
-        //
+        /*
+        AGP - this implements the Super Admin role
+        This works by deploying Gate functions in the app such as auth()->user->can() and
+        for the user with Super Admin role, whatever role is in the request, this gate will always
+        return true. For other users, the return will fall through to be managed by the regular gate
+        controls.
+        */
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('super admin') ? true : null;
+        });
     }
 }
