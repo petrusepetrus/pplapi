@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Country;
+use App\Models\UserTypeStatus;
 use Illuminate\Http\Request;
 
-class CountryController extends Controller
+class UserTypeStatusController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return Country::all()->pluck('country','id')->sortBy('id');
-        //return Country::get(['country','id']);
+        return UserTypeStatus::get(['user_type_status','id']);
     }
 
     /**

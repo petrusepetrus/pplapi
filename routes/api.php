@@ -7,6 +7,9 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\PhoneTypeController;
 use App\Http\Controllers\PhoneUserController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserTypeController;
+use App\Http\Controllers\UserTypeStatusController;
+use App\Http\Controllers\UserUserTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,27 +27,34 @@ use Illuminate\Support\Facades\Route;
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
-Route::middleware('auth:sanctum')->get('/user/{user}', [UserController::class,'show']);
-Route::get('/auth', AuthController::class);
-//Route::get('/auth', [AuthController::class,'show']);
-Route::get('/countries', [CountryController::class, 'index']);
+Route::middleware('auth:sanctum')->group(function() {
+    Route::get('/auth', AuthController::class);
 
-Route::get('/address-types', [AddressTypeController::class, 'index']);
+    Route::get('/user/{user}', [UserController::class, 'show']);
 
-Route::get('/phone-types', [PhoneTypeController::class, 'index']);
+    Route::get('/countries', [CountryController::class, 'index']);
 
-Route::get('/users', [UserController::class, 'index']);
+    Route::get('/address-types', [AddressTypeController::class, 'index']);
 
-Route::post('/store-address/user/{user}',[AddressUserController::class,'store']);
-Route::post('/update-address/user/{id}/address/{address}',[AddressUserController::class,'update']);
-Route::delete('/delete-address/user/{user}/address/{address}',[AddressUserController::class,'destroy']);
-Route::get('/available-address-types/user/{id}', [AddressUserController::class, 'getAvailableAddressTypes']);
+    Route::get('/phone-types', [PhoneTypeController::class, 'index']);
 
-Route::post('/store-phone/user/{user}',[PhoneUserController::class,'store']);
-Route::post('/update-phone/user/{id}/phone/{phone}',[PhoneUserController::class,'update']);
-Route::delete('/delete-phone/user/{user}/phone/{phone}',[PhoneUserController::class,'destroy']);
-Route::get('/available-phone-types/user/{id}', [PhoneUserController::class, 'getAvailablePhoneTypes']);
+    Route::get('/user-types', [UserTypeController::class, 'index']);
 
-Route::get('/user-addresses/{id}',[UserController::class,'getUserAddresses']);
-Route::get('/user-phones/{id}',[UserController::class,'getUserPhones']);
-Route::get('/user-roles/{id}',[UserController::class,'getUserRoles']);
+    Route::get('/user-type-status', [UserTypeStatusController::class, 'index']);
+
+
+    Route::get('/available-address-types/user/{id}', [AddressUserController::class, 'getAvailableAddressTypes']);
+    Route::get('/available-phone-types/user/{id}', [PhoneUserController::class, 'getAvailablePhoneTypes']);
+    Route::get('/available-user-types/user/{id}', [UserUserTypeController::class, 'getAvailableUserTypes']);
+
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/user-types/user/{id}', [UserController::class, 'getUserUserTypes']);
+    Route::post('/update-user-types/user/{id}', [UserController::class, 'updateUserTypes']);
+    Route::get('/user-addresses/{id}',[UserController::class,'getUserAddresses']);
+    Route::get('/user-phones/{id}',[UserController::class,'getUserPhones']);
+    Route::get('/user-roles/{id}',[UserController::class,'getUserRoles']);
+    Route::get('/user-permissions/{id}',[UserController::class,'getUserPermissions']);
+    Route::get('/user/{id}',[UserController::class,'show']);
+    Route::put('/user/{id}',[UserController::class,'update']);
+});
+

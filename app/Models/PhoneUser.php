@@ -16,17 +16,17 @@ class PhoneUser extends Pivot
     ];
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function phone(){
-        return $this->belongsTo(Phone::class);
+        return $this->belongsTo(Phone::class,'phone_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function phone_type(){
+    public function phoneType(){
         return $this->belongsTo(PhoneType::class,'phone_type_id');
     }
 }

@@ -51,15 +51,27 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this
             ->belongsToMany('App\Models\Address')
-            ->withPivot('address_type_id', 'preferred_contact_address');
+            ->withPivot('address_type_id', 'preferred_contact_address')
+            ->withTimestamps();
     }
 
     public function phones()
     {
         return $this
             ->belongsToMany('App\Models\Phone')
-            ->withPivot('phone_type_id', 'preferred_contact_number');
+            ->withPivot('phone_type_id', 'preferred_contact_number')
+            ->withTimestamps();
     }
 
+    public function userUserType()
+    {
+        return $this->hasMany('App\Models\UserUserType');
+    }
+
+    public function userTypes()
+    {
+        return $this->belongsToMany('App\Models\UserType')
+            ->withTimestamps();
+    }
 
 }

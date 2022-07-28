@@ -23,7 +23,7 @@ class AddressUser extends Pivot
         return $this->belongsTo(Address::class);
     }
 
-    public function address_type(){
+    public function addressType(){
         return $this->belongsTo(AddressType::class,'address_type_id');
     }
 }
